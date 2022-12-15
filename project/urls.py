@@ -15,19 +15,33 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from ejemplo.views import index, sumar, buscar, mostrar_familiares, BuscarFamiliar, AltaFamiliar, ActualizarFamiliar, FamiliarList, FamiliarCrear, FamiliarBorrar, FamiliarActualizar
+from ejemplo.views import (index, sumar, buscar, 
+                            mostrar_familiares, BuscarFamiliar, AltaFamiliar, ActualizarFamiliar, 
+                            FamiliarList, FamiliarCrear, FamiliarBorrar, FamiliarActualizar, 
+                            EmpleadoDetail, EmpleadoList, EmpleadoCrear, EmpleadoBorrar, EmpleadoActualizar, 
+                            AlumnoList, AlumnoCrear, AlumnoBorrar, AlumnoActualizar, AlumnoDetail)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('saludar/', index), # ESTA ES LA NUEVA FUNCTION
+    path('saludar/', index), 
     path('sumar/<a>/<b>/', sumar),
     path('buscar/', buscar),
-    path('mi-familia/', mostrar_familiares), # nueva vista
-    path('mi-familia/buscar', BuscarFamiliar.as_view()), # NUEVA RUTA PARA BUSCAR FAMILIAR
-    path('mi-familia/alta', AltaFamiliar.as_view()), # NUEVA RUTA PARA BUSCAR FAMILIAR
-    path('mi-familia/actualizar/<int:pk>', ActualizarFamiliar.as_view()), # NUEVA RUTA PARA BUSCAR FAMILIAR
-    path('panel-familia/', FamiliarList.as_view()), # NUEVA RUTA PARA LISTAR FAMILIAR
-    path('panel-familia/crear', FamiliarCrear.as_view()), # NUEVA RUTA PARA LISTAR FAMILIAR
-    path('panel-familia/<int:pk>/borrar', FamiliarBorrar.as_view()), # NUEVA RUTA PARA LISTAR FAMILIAR
-    path('panel-familia/<int:pk>/actualizar', FamiliarActualizar.as_view()), # NUEVA RUTA PARA LISTAR FAMILIAR
+    path('mi-familia/', mostrar_familiares), 
+    path('mi-familia/buscar', BuscarFamiliar.as_view()), 
+    path('mi-familia/alta', AltaFamiliar.as_view()), 
+    path('mi-familia/actualizar/<int:pk>', ActualizarFamiliar.as_view()), 
+    path('panel-familia/', FamiliarList.as_view()), 
+    path('panel-familia/crear', FamiliarCrear.as_view()), 
+    path('panel-familia/<int:pk>/borrar', FamiliarBorrar.as_view()), 
+    path('panel-familia/<int:pk>/actualizar', FamiliarActualizar.as_view()), 
+    path('panel-empleado/', EmpleadoList.as_view()),
+    path('panel-empleado/crear', EmpleadoCrear.as_view()), 
+    path('panel-empleado/<int:pk>/borrar', EmpleadoBorrar.as_view()), 
+    path('panel-empleado/<int:pk>/actualizar', EmpleadoActualizar.as_view()), 
+    path('panel-empleado/<int:pk>/detalle', EmpleadoDetail.as_view()), 
+    path('panel-alumno/', AlumnoList.as_view()),
+    path('panel-alumno/crear', AlumnoCrear.as_view()), 
+    path('panel-alumno/<int:pk>/borrar', AlumnoBorrar.as_view()), 
+    path('panel-alumno/<int:pk>/actualizar', AlumnoActualizar.as_view()), 
+    path('panel-alumno/<int:pk>/detalle', AlumnoDetail.as_view()), 
 ]

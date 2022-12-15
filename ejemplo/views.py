@@ -1,8 +1,8 @@
 from django.shortcuts import render, get_object_or_404 
-from ejemplo.models import Familiar
-from ejemplo.forms import Buscar, FamiliarForm # <--- NUEVO IMPORT
-from django.views import View # <-- NUEVO IMPORT 
-from django.views.generic import ListView, CreateView, DeleteView, UpdateView # <----- NUEVO IMPORT
+from ejemplo.models import Familiar, Empleado, Alumno
+from ejemplo.forms import Buscar, FamiliarForm, EmpleadoForm
+from django.views import View 
+from django.views.generic import DetailView, ListView, CreateView, DeleteView, UpdateView
 
 def index(request):
     return render(request, "ejemplo/saludar.html")
@@ -120,4 +120,72 @@ class FamiliarActualizar(UpdateView):
   model = Familiar
   success_url = "/panel-familia"
   fields = ["nombre", "direccion", "numero_pasaporte", "fecha"]
-  
+
+
+#Empleado
+
+class AltaEmpleado(View):
+
+    form_class = EmpleadoForm
+    template_name = 'ejemplo/alta_familiar.html'
+    initial = {"nombre":"", "direccion":"", "numero_pasaporte":"", "fecha":""}
+
+    def get(self, request):
+        form = self.form_class(initial=self.initial)
+        return render(request, self.template_name, {'form':form})
+
+    def post(self, request):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            form.save()
+            msg_exito = f"Se cargó con éxito el familiar {form.cleaned_data.get('nombre')}"
+            form = self.form_class(initial=self.initial)
+            return render(request, self.template_name, {'form':form, 
+                                                        'msg_exito': msg_exito})
+        
+        return render(request, self.template_name, {"form": form})
+
+
+class EmpleadoDetail(DetailView):
+  model = Empleado
+
+class EmpleadoList(ListView):
+  model = Empleado
+
+class EmpleadoCrear(CreateView):
+  model = Empleado
+  success_url = "/panel-empleado"
+  fields = ["nombre", "puesto", "documento"]
+  initial = {"nombre":"", "puesto":"", "documento":""}
+
+class EmpleadoBorrar(DeleteView):
+  model = Empleado
+  success_url = "/panel-empleado"
+
+class EmpleadoActualizar(UpdateView):
+  model = Empleado
+  success_url = "/panel-empleado"
+  fields = ["nombre", "puesto", "documento"]
+
+
+#Alumno 
+class AlumnoDetail(DetailView):
+  model = Alumno
+
+class AlumnoList(ListView):
+  model = Alumno
+
+class AlumnoCrear(CreateView):
+  model = Alumno
+  success_url = "/panel-alumno"
+  fields = ["nombre", "clase", "nota_final"]
+  initial = {"nombre":"", "clase":"", "nota_final":""}
+
+class AlumnoBorrar(DeleteView):
+  model = Alumno
+  success_url = "/panel-alumno"
+
+class AlumnoActualizar(UpdateView):
+  model = Alumno
+  success_url = "/panel-alumno"
+  fields = ["nombre", "clase", "nota_final"]
