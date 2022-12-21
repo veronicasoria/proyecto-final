@@ -98,6 +98,8 @@ class ActualizarFamiliar(View):
       
       return render(request, self.template_name, {"form": form})
 
+class FamiliarDetalle(DetailView):
+  model = Familiar
 
 class FamiliarList(ListView):
   model = Familiar
